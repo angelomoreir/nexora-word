@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Documento1 - Nexora Word</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='2' fill='%232b5797'/%3E%3Ctext x='3' y='12.5' font-family='Arial' font-size='11' font-weight='bold' fill='white'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+<style id="print-style"></style>
+</head>
+<body data-theme="blue">
+<div id="app">
+
+  <!-- ============ BARRA DE TÍTULO ============ -->
+  <header id="titlebar">
+    <button id="office-btn" title="Nexora Word">
+      <img src="assets/nexora.png" alt="Nexora">
+    </button>
+    <div id="qat">
+      <button class="qat-btn" data-cmd="save" title="Guardar (Ctrl+S)"><i class="ic" data-icon="save"></i></button>
+      <span class="qat-split"><button class="qat-btn" data-cmd="undo" data-tip="Anular (Ctrl+Z)"><i class="ic" data-icon="undo"></i></button><button class="qat-arrow" data-dropdown="dd-undo" data-tip="Anular">▾</button></span>
+      <button class="qat-btn" data-cmd="redo" data-tip="Refazer (Ctrl+Y)"><i class="ic" data-icon="redo"></i></button>
+      <button class="qat-btn qat-more" data-dropdown="dd-qat" title="Personalizar Barra de Ferramentas de Acesso Rápido">▾</button>
+    </div>
+    <div id="doc-title">Documento1 - Nexora Word</div>
+    <div id="win-controls">
+      <button data-cmd="minimize" title="Minimizar"><svg viewBox="0 0 10 10"><rect x="1" y="7" width="8" height="2" fill="currentColor"/></svg></button>
+      <button data-cmd="fullscreen" title="Maximizar"><svg viewBox="0 0 10 10"><rect x="1" y="1" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></button>
+      <button data-cmd="exit" class="wc-close" title="Fechar"><svg viewBox="0 0 10 10"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.8"/></svg></button>
+    </div>
+  </header>
+
+  <!-- ============ SEPARADORES E FRISO (gerados por js/ribbon.js) ============ -->
+  <nav id="tabs"></nav>
+  <section id="ribbon"></section>
+  <div id="message-bar" class="hidden"><i class="ic" data-icon="info"></i><span id="message-text"></span><button class="std" id="message-btn"></button><button class="mb-x" data-cmd="hideMessage" data-tip="Fechar a Barra de Mensagens">✕</button></div>
+
+  <!-- ============ RÉGUA HORIZONTAL ============ -->
+  <div id="ruler-row">
+    <div id="ruler-corner" title="Tabulação à Esquerda"><span></span></div>
+    <div id="hruler"><canvas></canvas></div>
+  </div>
+
+  <!-- ============ ÁREA DE TRABALHO ============ -->
+  <main id="workspace">
+    <aside id="left-pane" class="hidden">
+      <div class="pane-head"><select id="left-pane-mode"><option value="map">Mapa do Documento</option><option value="thumbs">Miniaturas</option></select><button class="pane-x" data-cmd="closeLeftPane" data-tip="Fechar">✕</button></div>
+      <div class="pane-body" id="left-pane-body"></div>
+    </aside>
+    <div id="vruler"><canvas></canvas></div>
+    <div id="split-view" class="hidden"><div id="split-mirror"></div></div>
+    <div id="scroller">
+      <div id="pages">
+        <div id="page">
+          <div id="watermark"></div>
+          <div id="doc-header" class="hf" contenteditable="true" spellcheck="false" data-label="Cabeçalho"></div>
+          <div id="editor" contenteditable="true" spellcheck="false" lang="pt-PT"><p><br></p></div>
+          <div id="doc-footer" class="hf" contenteditable="true" spellcheck="false" data-label="Rodapé"></div>
+          <div id="img-box"><span class="h nw" data-h="nw"></span><span class="h ne" data-h="ne"></span><span class="h sw" data-h="sw"></span><span class="h se" data-h="se"></span><span class="h rot" data-h="rot" title="Rodar"></span></div>
+          <div id="balloons"></div>
+        </div>
+      </div>
+    </div>
+    <aside id="task-pane" class="hidden">
+      <div class="pane-head"><span id="task-pane-title"></span><button class="pane-x" data-cmd="closeTaskPane" data-tip="Fechar">✕</button></div>
+      <div class="pane-body" id="task-pane-body"></div>
+    </aside>
+  </main>
+
+  <!-- ============ BARRA DE ESTADO ============ -->
+  <footer id="statusbar">
+    <span class="sb-item" id="sb-page" data-sb="page" data-cmd="goTo" data-tip="Número da página no documento. Clique para abrir a caixa Ir Para.">Página: 1 de 1</span>
+    <span class="sb-item" id="sb-section" data-sb="section">Secção: 1</span>
+    <span class="sb-item" id="sb-words" data-sb="words" data-cmd="wordCount" data-tip="Número de palavras no documento. Clique para abrir a caixa Contar Palavras.">Palavras: 0</span>
+    <span class="sb-item" id="sb-spell" data-sb="spell" data-cmd="spellDialog" data-tip="Estado da Verificação Ortográfica e Gramatical"><i class="ic" data-icon="spellbook"></i></span>
+    <span class="sb-item" id="sb-lang" data-sb="lang" data-cmd="language" data-tip="Idioma">Português (Portugal)</span>
+    <span class="sb-item" id="sb-track" data-sb="track" data-cmd="trackChanges" data-tip="Controlar Alterações">Controlar Alterações: Desactivado</span>
+    <span class="sb-item" id="sb-caps" data-sb="caps">Caps Lock</span>
+    <span class="sb-item" id="sb-ovr" data-sb="ovr" data-cmd="toggleOvertype" data-tip="Modo Sobrepor (Insert)">Inserir</span>
+    <span class="sb-item" id="sb-macro" data-sb="macro" data-cmd="macroToggle" data-tip="Gravar macro"><i class="ic" data-icon="record"></i></span>
+    <span class="sb-spacer"></span>
+    <span class="sb-views" data-sb="views">
+      <button class="sb-view active" data-cmd="viewPrint" data-tip="Esquema de Impressão"><i class="ic" data-icon="printlayout"></i></button>
+      <button class="sb-view" data-cmd="viewReading" data-tip="Leitura em Ecrã Inteiro"><i class="ic" data-icon="reading"></i></button>
+      <button class="sb-view" data-cmd="viewWeb" data-tip="Esquema Web"><i class="ic" data-icon="weblayout"></i></button>
+      <button class="sb-view" data-cmd="viewOutline" data-tip="Destaque"><i class="ic" data-icon="outline"></i></button>
+      <button class="sb-view" data-cmd="viewDraft" data-tip="Rascunho"><i class="ic" data-icon="draft"></i></button>
+    </span>
+    <button class="sb-zoom-label" id="zoom-label" data-sb="zoom" data-cmd="zoomDialog" data-tip="Nível de zoom">100%</button>
+    <span class="sb-zoomctl" data-sb="slider">
+      <button class="sb-zoom-btn" data-cmd="zoomOut" data-tip="Reduzir">−</button>
+      <input type="range" id="zoom-slider" min="0" max="100" value="50" data-tip="Zoom">
+      <button class="sb-zoom-btn" data-cmd="zoomIn" data-tip="Ampliar">+</button>
+    </span>
+  </footer>
+</div>
+
+<!-- ============ MENU DO BOTÃO OFFICE ============ -->
+<div id="office-menu">
+  <div class="om-head"><button class="om-orb" data-cmd="officeMenuClose"><img src="assets/nexora.png" alt="Nexora"></button></div>
+  <div class="om-main">
+    <div class="om-left">
+      <button class="om-item" data-cmd="new" data-om="recent"><i class="ic lg" data-icon="new"></i><span><u>N</u>ovo</span></button>
+      <button class="om-item" data-cmd="open" data-om="recent"><i class="ic lg" data-icon="open"></i><span><u>A</u>brir</span></button>
+      <button class="om-item" data-cmd="save" data-om="recent"><i class="ic lg" data-icon="save"></i><span><u>G</u>uardar</span></button>
+      <button class="om-item om-sub" data-cmd="saveAs" data-om="saveas"><i class="ic lg" data-icon="saveas"></i><span>Guardar <u>C</u>omo</span></button>
+      <button class="om-item om-sub" data-cmd="printDialog" data-om="print"><i class="ic lg" data-icon="print"></i><span><u>I</u>mprimir</span></button>
+      <button class="om-item om-sub" data-om="prepare"><i class="ic lg" data-icon="prepare"></i><span><u>P</u>reparar</span></button>
+      <button class="om-item om-sub" data-om="send"><i class="ic lg" data-icon="send"></i><span><u>E</u>nviar</span></button>
+      <button class="om-item om-sub" data-om="publish"><i class="ic lg" data-icon="publish"></i><span>Pu<u>b</u>licar</span></button>
+      <div class="om-sep"></div>
+      <button class="om-item" data-cmd="close" data-om="recent"><i class="ic lg" data-icon="close"></i><span><u>F</u>echar</span></button>
+    </div>
+    <div class="om-right">
+      <div class="om-panel active" data-ompanel="recent">
+        <div class="om-right-title">Documentos Recentes</div>
+        <div id="recent-list"></div>
+      </div>
+      <div class="om-panel" data-ompanel="saveas">
+        <div class="om-right-title">Guardar uma cópia do documento</div>
+        <button class="om-fmt" data-cmd="saveAs" data-arg="docx"><i class="ic lg" data-icon="docx"></i><span><b>Documento do Nexora Word</b><small>Guardar o documento no formato de ficheiro predefinido.</small></span></button>
+        <button class="om-fmt" data-cmd="saveAs" data-arg="doc"><i class="ic lg" data-icon="doc97"></i><span><b>Documento do Word 97-2003</b><small>Guardar uma cópia compatível com o Word 97-2003.</small></span></button>
+        <button class="om-fmt" data-cmd="saveAs" data-arg="html"><i class="ic lg" data-icon="weblayout"></i><span><b>Página Web</b><small>Guardar o documento como página HTML.</small></span></button>
+        <button class="om-fmt" data-cmd="saveAs" data-arg="txt"><i class="ic lg" data-icon="txt"></i><span><b>Texto Simples</b><small>Guardar apenas o texto, sem formatação.</small></span></button>
+        <button class="om-fmt" data-cmd="savePdf"><i class="ic lg" data-icon="pdf"></i><span><b>PDF ou XPS</b><small>Publicar uma cópia do documento como ficheiro PDF.</small></span></button>
+      </div>
+      <div class="om-panel" data-ompanel="print">
+        <div class="om-right-title">Pré-visualizar e imprimir o documento</div>
+        <button class="om-fmt" data-cmd="printDialog"><i class="ic lg" data-icon="print"></i><span><b>Imprimir</b><small>Seleccione uma impressora, o número de cópias e outras opções de impressão antes de imprimir.</small></span></button>
+        <button class="om-fmt" data-cmd="print"><i class="ic lg" data-icon="quickprint"></i><span><b>Impressão Rápida</b><small>Envie o documento directamente para a impressora predefinida sem efectuar alterações.</small></span></button>
+        <button class="om-fmt" data-cmd="printPreview"><i class="ic lg" data-icon="printpreview"></i><span><b>Pré-visualizar</b><small>Pré-visualize e efectue alterações às páginas antes de imprimir.</small></span></button>
+      </div>
+      <div class="om-panel" data-ompanel="prepare">
+        <div class="om-right-title">Preparar o documento para distribuição</div>
+        <button class="om-fmt" data-cmd="properties"><i class="ic lg" data-icon="properties"></i><span><b>Propriedades</b><small>Ver e editar as propriedades do documento, como o Título, o Autor e as Palavras-chave.</small></span></button>
+        <button class="om-fmt" data-cmd="inspect"><i class="ic lg" data-icon="inspect"></i><span><b>Inspeccionar Documento</b><small>Verificar se o documento tem metadados ocultos ou informações pessoais.</small></span></button>
+        <button class="om-fmt" data-cmd="protect"><i class="ic lg" data-icon="protect"></i><span><b>Restringir Edição</b><small>Proteger o documento com uma palavra-passe contra alterações.</small></span></button>
+        <button class="om-fmt" data-cmd="markFinal"><i class="ic lg" data-icon="final"></i><span><b>Marcar como Final</b><small>Informar os leitores de que o documento é final e torná-lo só de leitura.</small></span></button>
+        <button class="om-fmt" data-cmd="compatCheck"><i class="ic lg" data-icon="compat"></i><span><b>Executar Verificador de Compatibilidade</b><small>Verificar funcionalidades não suportadas pelas versões anteriores do Nexora Word.</small></span></button>
+      </div>
+      <div class="om-panel" data-ompanel="send">
+        <div class="om-right-title">Enviar uma cópia do documento a outras pessoas</div>
+        <button class="om-fmt" data-cmd="sendEmail"><i class="ic lg" data-icon="send"></i><span><b>Correio Electrónico</b><small>Enviar uma cópia do documento numa mensagem de correio electrónico como anexo.</small></span></button>
+        <button class="om-fmt" data-cmd="sendEmail" data-arg="pdf"><i class="ic lg" data-icon="pdf"></i><span><b>Correio Electrónico como Texto</b><small>Enviar o conteúdo do documento no corpo da mensagem.</small></span></button>
+      </div>
+      <div class="om-panel" data-ompanel="publish">
+        <div class="om-right-title">Distribuir o documento a outras pessoas</div>
+        <button class="om-fmt" data-cmd="publishBlog"><i class="ic lg" data-icon="publish"></i><span><b>Blogue</b><small>Criar uma nova mensagem de blogue com o conteúdo do documento (HTML copiado para a área de transferência).</small></span></button>
+        <button class="om-fmt" data-cmd="saveAs" data-arg="html"><i class="ic lg" data-icon="weblayout"></i><span><b>Página Web</b><small>Publicar o documento como página Web.</small></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="om-bottom">
+    <button class="std" data-cmd="options"><i class="ic" data-icon="options"></i> Opções do Nexora Word</button>
+    <button class="std" data-cmd="exit"><i class="ic" data-icon="exit"></i> Sair do Nexora Word</button>
+  </div>
+</div>
+
+<!-- ============ MENUS PENDENTES ============ -->
+<div id="dropdowns">
+  <div class="dropdown" id="dd-qat">
+    <div class="dd-title">Personalizar Barra de Ferramentas de Acesso Rápido</div>
+    <button class="dd-item" data-cmd="new"><i class="ic" data-icon="new"></i>Novo</button>
+    <button class="dd-item" data-cmd="open"><i class="ic" data-icon="open"></i>Abrir</button>
+    <button class="dd-item" data-cmd="print"><i class="ic" data-icon="print"></i>Impressão Rápida</button>
+    <div class="dd-sep"></div>
+    <button class="dd-item" data-cmd="toggleRibbon">Minimizar o Friso</button>
+  </div>
+  <div class="dropdown scroll" id="dd-fonts"></div>
+  <div class="dropdown scroll" id="dd-sizes"></div>
+  <div class="dropdown" id="dd-case">
+    <button class="dd-item" data-cmd="changeCase" data-arg="sentence">Frase.</button>
+    <button class="dd-item" data-cmd="changeCase" data-arg="lower">minúsculas</button>
+    <button class="dd-item" data-cmd="changeCase" data-arg="upper">MAIÚSCULAS</button>
+    <button class="dd-item" data-cmd="changeCase" data-arg="title">Cada Palavra Em Maiúscula</button>
+    <button class="dd-item" data-cmd="changeCase" data-arg="toggle">aLTERNAR mAIÚSCULAS/mINÚSCULAS</button>
+  </div>
+  <div class="dropdown palette" id="dd-highlight"></div>
+  <div class="dropdown palette" id="dd-forecolor"></div>
+  <div class="dropdown palette" id="dd-shading"></div>
+  <div class="dropdown palette" id="dd-pagecolor"></div>
+  <div class="dropdown" id="dd-bullets">
+    <div class="dd-title">Biblioteca de Marcas</div>
+    <div class="dd-grid">
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ul:disc">●</button>
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ul:circle">○</button>
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ul:square">■</button>
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ul:none">Nenhuma</button>
+    </div>
+  </div>
+  <div class="dropdown" id="dd-numbering">
+    <div class="dd-title">Biblioteca de Numeração</div>
+    <div class="dd-grid">
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ol:decimal">1.<br>2.<br>3.</button>
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ol:lower-alpha">a)<br>b)<br>c)</button>
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ol:upper-alpha">A.<br>B.<br>C.</button>
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ol:lower-roman">i.<br>ii.<br>iii.</button>
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ol:upper-roman">I.<br>II.<br>III.</button>
+      <button class="dd-tile" data-cmd="listStyle" data-arg="ol:none">Nenhuma</button>
+    </div>
+  </div>
+  <div class="dropdown" id="dd-linespacing">
+    <button class="dd-item ls" data-cmd="lineSpacing" data-arg="1">1,0</button>
+    <button class="dd-item ls" data-cmd="lineSpacing" data-arg="1.15">1,15</button>
+    <button class="dd-item ls" data-cmd="lineSpacing" data-arg="1.5">1,5</button>
+    <button class="dd-item ls" data-cmd="lineSpacing" data-arg="2">2,0</button>
+    <button class="dd-item ls" data-cmd="lineSpacing" data-arg="2.5">2,5</button>
+    <button class="dd-item ls" data-cmd="lineSpacing" data-arg="3">3,0</button>
+    <div class="dd-sep"></div>
+    <button class="dd-item" data-cmd="paraSpace" data-arg="before"><i class="ic" data-icon="spaceBefore"></i>Adicionar Espaço Antes do Parágrafo</button>
+    <button class="dd-item" data-cmd="paraSpace" data-arg="after"><i class="ic" data-icon="spaceAfter"></i>Remover Espaço Depois do Parágrafo</button>
+  </div>
+  <div class="dropdown" id="dd-borders">
+    <button class="dd-item" data-cmd="border" data-arg="bottom">Limite Inferior</button>
+    <button class="dd-item" data-cmd="border" data-arg="top">Limite Superior</button>
+    <button class="dd-item" data-cmd="border" data-arg="left">Limite Esquerdo</button>
+    <button class="dd-item" data-cmd="border" data-arg="right">Limite Direito</button>
+    <button class="dd-item" data-cmd="border" data-arg="all">Todos os Limites</button>
+    <button class="dd-item" data-cmd="border" data-arg="box">Limites Exteriores</button>
+    <div class="dd-sep"></div>
+    <button class="dd-item" data-cmd="border" data-arg="none">Sem Limite</button>
+  </div>
+  <div class="dropdown styles-dd" id="dd-styles"></div>
+  <div class="dropdown" id="dd-select">
+    <button class="dd-item" data-cmd="selectAll">Seleccionar Tudo</button>
+  </div>
+  <div class="dropdown" id="dd-table">
+    <div class="dd-title" id="table-grid-label">Inserir Tabela</div>
+    <div id="table-grid"></div>
+    <div class="dd-sep"></div>
+    <button class="dd-item" data-cmd="tableDialog"><i class="ic" data-icon="table"></i>Inserir Tabela...</button>
+  </div>
+  <div class="dropdown" id="dd-shapes">
+    <div class="dd-title">Formas Básicas</div>
+    <div class="dd-grid shapes">
+      <button class="dd-tile" data-cmd="shape" data-arg="rect" title="Rectângulo"><svg viewBox="0 0 20 20"><rect x="2" y="4" width="16" height="12" fill="#4f81bd" stroke="#385d8a"/></svg></button>
+      <button class="dd-tile" data-cmd="shape" data-arg="round" title="Rectângulo Arredondado"><svg viewBox="0 0 20 20"><rect x="2" y="4" width="16" height="12" rx="4" fill="#4f81bd" stroke="#385d8a"/></svg></button>
+      <button class="dd-tile" data-cmd="shape" data-arg="ellipse" title="Oval"><svg viewBox="0 0 20 20"><ellipse cx="10" cy="10" rx="8" ry="6" fill="#4f81bd" stroke="#385d8a"/></svg></button>
+      <button class="dd-tile" data-cmd="shape" data-arg="triangle" title="Triângulo"><svg viewBox="0 0 20 20"><path d="M10 3l8 14H2z" fill="#4f81bd" stroke="#385d8a"/></svg></button>
+      <button class="dd-tile" data-cmd="shape" data-arg="arrow" title="Seta para a Direita"><svg viewBox="0 0 20 20"><path d="M2 7h9V3l7 7-7 7v-4H2z" fill="#4f81bd" stroke="#385d8a"/></svg></button>
+      <button class="dd-tile" data-cmd="shape" data-arg="star" title="Estrela"><svg viewBox="0 0 20 20"><path d="M10 2l2.4 5.2 5.6.6-4.2 3.8 1.2 5.6L10 14.4 5 17.2l1.2-5.6L2 7.8l5.6-.6z" fill="#4f81bd" stroke="#385d8a"/></svg></button>
+      <button class="dd-tile" data-cmd="shape" data-arg="heart" title="Coração"><svg viewBox="0 0 20 20"><path d="M10 17S2 12 2 7a4 4 0 018-1 4 4 0 018 1c0 5-8 10-8 10z" fill="#4f81bd" stroke="#385d8a"/></svg></button>
+      <button class="dd-tile" data-cmd="shape" data-arg="line" title="Linha"><svg viewBox="0 0 20 20"><path d="M2 17L18 3" stroke="#4f81bd" stroke-width="2"/></svg></button>
+    </div>
+  </div>
+  <div class="dropdown" id="dd-date"></div>
+  <div class="dropdown" id="dd-symbols"><div class="dd-grid symbols" id="symbol-grid"></div></div>
+  <div class="dropdown big-items" id="dd-margins">
+    <button class="dd-big" data-cmd="margins" data-arg="normal"><i class="ic lg" data-icon="margins"></i><span><b>Normal</b><small>Superior: 2,5 cm &nbsp; Inferior: 2,5 cm<br>Esquerda: 3 cm &nbsp; Direita: 3 cm</small></span></button>
+    <button class="dd-big" data-cmd="margins" data-arg="estreita"><i class="ic lg" data-icon="margins"></i><span><b>Estreita</b><small>Superior: 1,27 cm &nbsp; Inferior: 1,27 cm<br>Esquerda: 1,27 cm &nbsp; Direita: 1,27 cm</small></span></button>
+    <button class="dd-big" data-cmd="margins" data-arg="moderada"><i class="ic lg" data-icon="margins"></i><span><b>Moderada</b><small>Superior: 2,54 cm &nbsp; Inferior: 2,54 cm<br>Esquerda: 1,91 cm &nbsp; Direita: 1,91 cm</small></span></button>
+    <button class="dd-big" data-cmd="margins" data-arg="larga"><i class="ic lg" data-icon="margins"></i><span><b>Larga</b><small>Superior: 2,54 cm &nbsp; Inferior: 2,54 cm<br>Esquerda: 5,08 cm &nbsp; Direita: 5,08 cm</small></span></button>
+    <div class="dd-sep"></div>
+    <button class="dd-item" data-cmd="customMargins">Margens Personalizadas...</button>
+  </div>
+  <div class="dropdown big-items" id="dd-orientation">
+    <button class="dd-big" data-cmd="orientation" data-arg="portrait"><i class="ic lg" data-icon="portrait"></i><span><b>Vertical</b></span></button>
+    <button class="dd-big" data-cmd="orientation" data-arg="landscape"><i class="ic lg" data-icon="landscape"></i><span><b>Horizontal</b></span></button>
+  </div>
+  <div class="dropdown big-items" id="dd-size">
+    <button class="dd-big" data-cmd="pageSize" data-arg="A4"><i class="ic lg" data-icon="size"></i><span><b>A4</b><small>21 cm x 29,7 cm</small></span></button>
+    <button class="dd-big" data-cmd="pageSize" data-arg="Carta"><i class="ic lg" data-icon="size"></i><span><b>Carta</b><small>21,59 cm x 27,94 cm</small></span></button>
+    <button class="dd-big" data-cmd="pageSize" data-arg="Legal"><i class="ic lg" data-icon="size"></i><span><b>Legal</b><small>21,59 cm x 35,56 cm</small></span></button>
+    <button class="dd-big" data-cmd="pageSize" data-arg="A5"><i class="ic lg" data-icon="size"></i><span><b>A5</b><small>14,8 cm x 21 cm</small></span></button>
+    <button class="dd-big" data-cmd="pageSize" data-arg="A3"><i class="ic lg" data-icon="size"></i><span><b>A3</b><small>29,7 cm x 42 cm</small></span></button>
+  </div>
+  <div class="dropdown big-items" id="dd-columns">
+    <button class="dd-big" data-cmd="columns" data-arg="1"><i class="ic lg" data-icon="col1"></i><span><b>Uma</b></span></button>
+    <button class="dd-big" data-cmd="columns" data-arg="2"><i class="ic lg" data-icon="columns"></i><span><b>Duas</b></span></button>
+    <button class="dd-big" data-cmd="columns" data-arg="3"><i class="ic lg" data-icon="col3"></i><span><b>Três</b></span></button>
+  </div>
+  <div class="dropdown" id="dd-watermark">
+    <div class="dd-title">Exclusão de Responsabilidade</div>
+    <div class="dd-grid wm">
+      <button class="dd-tile wm-tile" data-cmd="watermark" data-arg="CONFIDENCIAL"><span>CONFIDENCIAL</span></button>
+      <button class="dd-tile wm-tile" data-cmd="watermark" data-arg="NÃO COPIAR"><span>NÃO COPIAR</span></button>
+      <button class="dd-tile wm-tile" data-cmd="watermark" data-arg="RASCUNHO"><span>RASCUNHO</span></button>
+      <button class="dd-tile wm-tile" data-cmd="watermark" data-arg="URGENTE"><span>URGENTE</span></button>
+      <button class="dd-tile wm-tile" data-cmd="watermark" data-arg="EXEMPLO"><span>EXEMPLO</span></button>
+      <button class="dd-tile wm-tile" data-cmd="watermark" data-arg="ASAP"><span>ASAP</span></button>
+    </div>
+    <div class="dd-sep"></div>
+    <button class="dd-item" data-cmd="watermarkCustom">Marca d'Água Personalizada...</button>
+    <button class="dd-item" data-cmd="watermark" data-arg="">Remover Marca d'Água</button>
+  </div>
+</div>
+
+<div id="ctx-menu" class="dropdown"></div>
+
+<!-- Caixa Localizar e Substituir -->
+<div id="find-dialog" class="dialog floating">
+  <div class="dlg-title"><span>Localizar e Substituir</span><button class="dlg-x" data-cmd="findClose">✕</button></div>
+  <div class="dlg-body">
+    <div class="dlg-tabs"><button class="dlg-tab active" data-ftab="find">Localizar</button><button class="dlg-tab" data-ftab="replace">Substituir</button></div>
+    <div class="dlg-tabbody">
+      <label class="frow">Localizar:<input id="find-text" spellcheck="false"></label>
+      <label class="frow replace-only">Substituir por:<input id="replace-text" spellcheck="false"></label>
+      <label class="fcheck"><input type="checkbox" id="find-case"> Maiúsculas/minúsculas</label>
+      <label class="fcheck"><input type="checkbox" id="find-word"> Localizar apenas palavras inteiras</label>
+      <div class="find-msg" id="find-msg"></div>
+    </div>
+  </div>
+  <div class="dlg-buttons">
+    <button class="std replace-only" data-cmd="replaceOne">Substituir</button>
+    <button class="std replace-only" data-cmd="replaceAll">Substituir Tudo</button>
+    <button class="std primary" data-cmd="findNext">Localizar Seguinte</button>
+    <button class="std" data-cmd="findClose">Fechar</button>
+  </div>
+</div>
+
+<input type="file" id="file-input" hidden>
+<input type="file" id="image-input" accept="image/*" hidden>
+
+<!-- Mini barra de ferramentas, SuperSugestões, KeyTips e ecrã inicial -->
+<div id="mini-toolbar" class="hidden"></div>
+<div id="supertip" class="hidden"></div>
+<div id="keytips"></div>
+<div id="splash"><div class="splash-box"><div class="splash-logo"><img src="assets/nexora.png" alt="Nexora"><span>Nexora<sup>®</sup><br><b>Word</b></span></div><div class="splash-msg">A iniciar…</div></div></div>
+<input type="file" id="aux-input" hidden>
+
+<script src="js/icons.js"></script>
+<script src="js/icons2.js"></script>
+<script src="js/zip.js"></script>
+<script src="js/ribbon.js"></script>
+<script src="js/app.js"></script>
+<script src="js/styles.js"></script>
+<script src="js/history.js"></script>
+<script src="js/paginate.js"></script>
+<script src="js/docx.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/dialogs.js"></script>
+<script src="js/tables.js"></script>
+<script src="js/insert2.js"></script>
+<script src="js/references.js"></script>
+<script src="js/mail.js"></script>
+<script src="js/review.js"></script>
+<script src="js/spell.js"></script>
+<script src="js/ai.js"></script>
+<script src="js/views.js"></script>
+<script src="js/boot.js"></script>
+</body>
+</html>

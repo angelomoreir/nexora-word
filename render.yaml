@@ -1,0 +1,17 @@
+# Blueprint do Render — site estático Nexora Word
+services:
+  - type: web
+    name: nexora-word
+    runtime: static
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: public, max-age=3600
+      - path: /js/*.js
+        name: Cache-Control
+        value: no-cache
+      - path: /css/*.css
+        name: Cache-Control
+        value: no-cache
